@@ -36,7 +36,7 @@ app.Use(neko.Logger())
 app.Use(neko.Recovery())
 ~~~
 
-##Routing
+## Routing
 Using GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS and Any
 ~~~go
 app.GET("/get", get)
@@ -52,7 +52,7 @@ app.Any("/any", options)
 Neko uses julienschmidt's [httprouter](https://github.com/julienschmidt/httprouter) internaly.
 
 
-##Group Routing
+## Group Routing
 ~~~go
 v1 := app.Group("/v1", func(router *neko.RouterGroup) {
   // Match /v1/item
@@ -70,7 +70,7 @@ v1.GET("/act", act)
 
 ## Parameters
 
-####Parameters in path
+#### Parameters in path
 ~~~go
 app.GET("/user/:name/*age", func(ctx *neko.Context) {
   // Request: "/user/neko/1?name=none&food=fish"
@@ -84,7 +84,7 @@ app.GET("/user/:name/*age", func(ctx *neko.Context) {
 })
 ~~~
 
-####Multipart/Urlencoded Form
+#### Multipart/Urlencoded Form
 ~~~go
 app.POST("/user", func(ctx *neko.Context) {
   // Request: "/user"  Post Data: { name: neko, age: 1}
@@ -94,7 +94,7 @@ app.POST("/user", func(ctx *neko.Context) {
 })
 ~~~
 
-####Json Data
+#### Json Data
 ~~~go
 app.POST("/user", func(ctx *neko.Context) {
   // Request: "/user"  Post Data: { name: neko, age: 1} Content-type: "application/json"
@@ -114,7 +114,7 @@ app.POST("/user", func(ctx *neko.Context) {
 })
 ~~~
 
-####BindJSON
+#### BindJSON
 ~~~go
 type User struct {
   User     string
@@ -130,9 +130,9 @@ app.POST("/user", func(ctx *neko.Context) {
 })
 ~~~
 
-##Response
+## Response
 
-####Render
+#### Render
 ~~~go
 type ExampleXml struct {
   XMLName xml.Name `xml:"example"`
@@ -155,7 +155,7 @@ ctx.Jsonp("neko", neko.JSON{"msg": "json render", "status": 200})
 ctx.Text("neko text")
 ~~~
 
-####Redirect
+#### Redirect
 ~~~go
 // Default 302
 ctx.Redirect("/")
@@ -164,7 +164,7 @@ ctx.Redirect("/")
 ctx.Redirect("/", 301)
 ~~~
 
-####Headers
+#### Headers
 ~~~go
 // Get header
 ctx.Writer.Header()
@@ -173,7 +173,7 @@ ctx.Writer.Header()
 ctx.SetHeader("x-before", "before")
 ~~~
 
-##Cookie
+## Cookie
 ~~~ go
 app.GET("/", func (ctx *neko.Context) {
   ctx.SetCookie("myvalue", "Cookies Save")
@@ -184,7 +184,7 @@ app.GET("/get", func (ctx *neko.Context) {
   ctx.Text(ctx.GetCookie("myvalue"))
 })
 ~~~
-####Secure cookie
+#### Secure cookie
 ~~~ go
 // Set cookie secret
 app.SetCookieSecret("secret123")
@@ -205,7 +205,7 @@ Use following arguments order to set more properties:
 
 ## Middlewares
 
-####Using middlewares
+#### Using middlewares
 ~~~go
 // Global middlewares
 app.Use(neko.Logger())
@@ -221,7 +221,7 @@ v1 := app.Group("/v1", func(router *neko.RouterGroup) {
 v1.Use(mymiddleware4)
 ~~~
 
-####Custom middlewares
+#### Custom middlewares
 ~~~go
 func mymiddleware() neko.HandlerFunc {
   return func (ctx *neko.Context) {
